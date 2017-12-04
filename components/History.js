@@ -68,9 +68,9 @@ class History extends Component {
         const { entries } = this.props
         const { ready } = this.state
 
-        if(!ready){
-            return <AppLoading />
-        }
+        // if(!ready){
+        //     return <AppLoading />
+        // }
 
 
         return (
