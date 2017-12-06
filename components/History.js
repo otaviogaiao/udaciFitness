@@ -30,14 +30,15 @@ class History extends Component {
                 }
             })
             .then(() => {
-                this.setState(() => {
+                this.setState(() => ({
                     ready: true
-                })
+                }))
             })
     }
 
-    renderItem = ({today, ...metrics}, formattedDate, key) => (
-            <View style={styles.item}>
+    renderItem = ({today, ...metrics}, formattedDate, key) => {
+            console.log('metrics', metrics)
+            return (<View style={styles.item}>
                 {
                     today 
                     ? <View>
@@ -46,12 +47,13 @@ class History extends Component {
                           {today}
                         </Text>
                      </View>
-                    : <TouchableOpacity onPress={() => console.log('pressed')}>
-                        <MetricCard metric={metrics} date={formattedDate}/>
+                    : <TouchableOpacity onPress={() => this.props.navigation.navigate('EntryDetail',
+                        { entryId: key})}>
+                        <MetricCard metrics={metrics} date={formattedDate}/>
                       </TouchableOpacity>
                 }
-            </View>
-    )
+            </View>)
+    }
 
     renderEmptyDate = ( formattedDate ) => {
         return (
@@ -68,9 +70,9 @@ class History extends Component {
         const { entries } = this.props
         const { ready } = this.state
 
-        // if(!ready){
-        //     return <AppLoading />
-        // }
+        if(ready === false){
+            return <AppLoading />
+        }
 
 
         return (
